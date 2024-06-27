@@ -1,5 +1,5 @@
 steps:
-  # Reservations
+  # Reservations 
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
@@ -14,7 +14,7 @@ steps:
     args:
       ['push', 'us-east4-docker.pkg.dev/sleepr-427715/reservations/production']
 
-  # Auth
+  # Auth 
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
@@ -28,7 +28,7 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-east4-docker.pkg.dev/sleepr-427715/auth/production']
 
-  # Notifications
+  # Notifications 
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
@@ -43,7 +43,7 @@ steps:
     args:
       ['push', 'us-east4-docker.pkg.dev/sleepr-427715/notifications/production']
 
-  # Payments
+  # Payments 
   - name: 'gcr.io/cloud-builders/docker'
     args:
       [
