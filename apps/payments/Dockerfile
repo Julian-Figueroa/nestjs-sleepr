@@ -1,28 +1,33 @@
-# Base stage for development
-FROM node:alpine AS development
+FROM node:alpine As development
 
 WORKDIR /usr/src/app
 
-COPY package.json pnpm-lock.yaml ./
-COPY tsconfig.json nest-cli.json ./
+COPY package.json ./
+COPY pnpm-lock.yaml ./
+COPY tsconfig.json tsconfig.json
+COPY nest-cli.json nest-cli.json
 
 RUN npm install -g pnpm
-RUN pnpm install
 
-COPY . .
+COPY apps/payments apps/payments
+COPY libs libs
+
+RUN pnpm install 
 
 RUN pnpm run build payments
 
-# Base stage for production
-FROM node:alpine AS production
+FROM node:alpine as production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY package.json pnpm-lock.yaml ./
+COPY package.json ./
+COPY pnpm-lock.yaml ./
+
 RUN npm install -g pnpm
+
 RUN pnpm install --prod
 
 COPY --from=development /usr/src/app/dist ./dist
